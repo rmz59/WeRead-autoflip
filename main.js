@@ -1,19 +1,9 @@
 // ==UserScript==
 // @name         Auto reader for Weread
-// @namespace    https://github.com/z-Runmin/
+// @namespace    https://github.com/DoooReyn/WxRead-WebAutoReader
 // @version      0.1
 // @description  微信读书网页版-自动翻页-刷时长
-// @author       Runmin Zhang
-// @match        http://weread.qq.com/*
-// @grant        none
-// ==/UserScript==
-
-// ==UserScript==
-// @name         Auto reader for Weread
-// @namespace    https://github.com/z-Runmin/
-// @version      0.1
-// @description  微信读书网页版-自动翻页-刷时长
-// @author       Runmin Zhang
+// @author       DoooReyn, z-Runmin
 // @match        https://weread.qq.com/*
 // @grant        none
 // ==/UserScript==
@@ -159,4 +149,15 @@ function wxAutoReader() {
     _handler = setInterval(onScroll, _page_scroll_interval);
 }
 
-wxAutoReader();
+// create a button for auto-flip
+var controlArea = document.getElementById("routerView");
+var actionNode = controlArea.getElementsByClassName("readerTopBar_title_chapter")[0];
+
+actionNode.addEventListener('click', function (event) {
+    actionNode.textContent = actionNode.textContent.replace("开始","停止");
+    wxAutoReader();
+})
+
+window.addEventListener('load', function() {
+    actionNode.textContent = actionNode.textContent + " 开始自动翻页"
+}, false);
