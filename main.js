@@ -88,10 +88,11 @@ function _getElement(name) {
     return document.getElementsByClassName(name)[0];
 }
 
+//定时器句柄
+var _handler;
+
 //自动阅读实现
-function wxAutoReader() {
-    //定时器句柄
-    var _handler;
+function wxAutoReader(isAuto) {
     //页面滚动时间间隔
     const _page_scroll_interval = 2000;
     //翻页等待时间间隔
@@ -146,18 +147,29 @@ function wxAutoReader() {
             clearInterval(_handler);
         }
     };
+    if (isAuto) {
+        scroll_enabled = true;
+    } else {
+        scroll_enabled = false;
+    }
     _handler = setInterval(onScroll, _page_scroll_interval);
 }
 
 // create a button for auto-flip
 var controlArea = document.getElementById("routerView");
 var actionNode = controlArea.getElementsByClassName("readerTopBar_title_chapter")[0];
-
+var isAuto = false;
 actionNode.addEventListener('click', function (event) {
-    actionNode.textContent = actionNode.textContent.replace("开始","停止");
-    wxAutoReader();
+    isAuto = !isAuto;
+    if (isAuto ==true) {
+        actionNode.textContent = actionNode.textContent.replace("未", "已");
+    } else {
+        window.clearInterval(_handler);
+        actionNode.textContent = actionNode.textContent.replace("已", "未");
+    }
+    wxAutoReader(isAuto);
 })
 
 window.addEventListener('load', function() {
-    actionNode.textContent = actionNode.textContent + " 开始自动翻页"
+    actionNode.textContent = actionNode.textContent + " 自动翻页未开启"
 }, false);
