@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         微信读书自动翻页 
-// @namespace    https://github.com/DoooReyn/WxRead-WebAutoReader
+// @namespace    https://github.com/z-Runmin/WeRead-autoflip
 // @version      0.1
 // @description  微信读书网页版刷时长
 // @author       DoooReyn, z-Runmin
