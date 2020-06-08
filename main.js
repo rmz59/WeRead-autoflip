@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Auto reader for Weread
+// @name         微信读书自动翻页 
 // @namespace    https://github.com/DoooReyn/WxRead-WebAutoReader
 // @version      0.1
-// @description  微信读书网页版-自动翻页-刷时长
+// @description  微信读书网页版刷时长
 // @author       DoooReyn, z-Runmin
 // @match        https://weread.qq.com/*
 // @grant        none
