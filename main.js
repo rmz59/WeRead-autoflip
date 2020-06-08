@@ -159,7 +159,6 @@ function wxAutoReader(isAuto) {
 var controlArea = document.getElementById("routerView");
 var parentNode = controlArea.getElementsByClassName("readerTopBar_title")[0];
 var titleNode = controlArea.getElementsByClassName("readerTopBar_title_link")[0];
-//var actionNode = controlArea.getElementsByClassName("readerTopBar_title_chapter")[0];
 var checkBox = document.createElement("span")
 checkBox.innerHTML = '<input id="autoflip" type="checkbox"/>自动翻页    '
 
