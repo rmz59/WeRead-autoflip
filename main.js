@@ -14,7 +14,7 @@ function sendNotice(title, content) {
         var notification = new Notification(title, {
             body: content || ""
         });
-        notification.onclick = function() {
+        notification.onclick = function () {
             window.focus();
             notification.close();
         };
@@ -23,9 +23,9 @@ function sendNotice(title, content) {
 
 //判断浏览器是否支持弹出实例
 function requestPermission() {
-    setTimeout(function() {
+    setTimeout(function () {
         if (window.Notification && Notification.permission === "default") {
-            Notification.requestPermission(function(status) {
+            Notification.requestPermission(function (status) {
                 if (status === "granted") {
                     sendNotice("微读自动阅读器", "微读自动阅读器很高兴为您服务");
                 } else {
@@ -60,12 +60,12 @@ function fireKeyEvent(element, evt_type, key_code) {
         } else {
             event_target = doc.createEvent("UIEvents");
             Object.defineProperty(event_target, "keyCode", {
-                get: function() {
+                get: function () {
                     return this.keyCodeVal;
                 }
             });
             Object.defineProperty(event_target, "which", {
-                get: function() {
+                get: function () {
                     return this.keyCodeVal;
                 }
             });
@@ -125,12 +125,12 @@ function wxAutoReader(isAuto) {
     fetchPageElement();
 
     //滚动事件
-    var onScroll = function() {
+    var onScroll = function () {
         if (!scroll_enabled) return;
         if (page_pos < l_h) {
             page_pos += _page_scroll_distance;
             var progress = (Math.min(page_pos / l_h, 1) * 100).toFixed(2) + "%";
-            document.title = progress +"【" + chapter+" ·" +title+"】";
+            document.title = progress + "【" + chapter + " ·" + title + "】";
             scroll(0, page_pos);
             return;
         }
@@ -157,19 +157,19 @@ function wxAutoReader(isAuto) {
 
 // create a button for auto-flip
 var controlArea = document.getElementById("routerView");
-var actionNode = controlArea.getElementsByClassName("readerTopBar_title_chapter")[0];
-var isAuto = false;
-actionNode.addEventListener('click', function (event) {
-    isAuto = !isAuto;
-    if (isAuto ==true) {
-        actionNode.textContent = actionNode.textContent.replace("未", "已");
-    } else {
-        window.clearInterval(_handler);
-        actionNode.textContent = actionNode.textContent.replace("已", "未");
-    }
-    wxAutoReader(isAuto);
-})
+var parentNode = controlArea.getElementsByClassName("readerTopBar_title")[0];
+var titleNode = controlArea.getElementsByClassName("readerTopBar_title_link")[0];
+//var actionNode = controlArea.getElementsByClassName("readerTopBar_title_chapter")[0];
+var checkBox = document.createElement("span")
+checkBox.innerHTML = '<input id="autoflip" type="checkbox"/>自动翻页    '
 
-window.addEventListener('load', function() {
-    actionNode.textContent = actionNode.textContent + " 自动翻页未开启"
+window.addEventListener('load', function () {
+    parentNode.insertBefore(checkBox, titleNode);
+    checkBox.addEventListener('click', function (event) {
+        var isAuto = checkBox.firstChild.checked;
+        if (!isAuto) {
+            window.clearInterval(_handler);
+        }
+        wxAutoReader(isAuto);
+    })
 }, false);
